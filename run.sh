@@ -112,6 +112,32 @@ then
     ./useSophus
     fi
 
+elif [ $1 = ch5/joinMap ]
+then
+
+    # ./run.sh ch5/joinMap False Debug|Release
+    buildPath="ch5/joinMap/build"
+    rebuild=$2
+    buildType=$3
+    make_build_dir $buildPath "$rebuild"
+    cd $buildPath
+    cmake -DCMAKE_BUILD_TYPE="$buildType" \
+      -DCMAKE_PREFIX_PATH="/home/shhs/env/pcl-1.8.1;/home/shhs/env/opencv3_2" \
+      -DCMAKE_CXX_FLAGS="-std=c++11" ..
+    make
+
+    cd ..
+
+    if [ "$buildType" = Debug ]
+    then
+        gdbserver localhost:8080 ./build/joinMap
+    else
+        LD_LIBRARY_PATH=/home/shhs/env/pcl-1.8.1/lib
+        ./build/joinMap
+        /home/shhs/env/pcl-1.8.1/bin/pcl_viewer map.pcd
+    fi
+
+
 else
     echo "Pass"
 fi
