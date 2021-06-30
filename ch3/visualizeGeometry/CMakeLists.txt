@@ -3,10 +3,13 @@ project( visualizeGeometry )
 
 set(CMAKE_CXX_FLAGS "-std=c++11")
 
+set( CMAKE_CXX_FLAGS "-static-libstdc++" )
+
 # 添加Eigen头文件
 include_directories( "/usr/include/eigen3" )
 
 # 添加Pangolin依赖
+set(CMAKE_PREFIX_PATH "/media/shhs/disk1/code/slambook-exp/slambook/3rdparty/Pangolin/build/src")
 find_package( Pangolin )
 include_directories( ${Pangolin_INCLUDE_DIRS} )
 
